@@ -1,5 +1,27 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'com.cinnober.gradle', name: 'semver-git', version: '2.4.0'
+    }
+}
 
 plugins {
     id 'java-gradle-plugin'
+    id 'maven-publish'
     id 'eclipse'
+}
+
+apply plugin: 'com.cinnober.gradle.semver-git'
+
+group = 'com.github.viccw'
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = "$group.${rootProject.name}"
+            implementationClass = 'com.github.viccw.openwhiskgradleplugin.OpenWhiskGradlePlugin'
+        }
+    }
 }
