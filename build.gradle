@@ -17,11 +17,40 @@ apply plugin: 'com.cinnober.gradle.semver-git'
 
 group = 'com.github.viccw'
 
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
+}
+
 gradlePlugin {
     plugins {
         simplePlugin {
             id = "$group.${rootProject.name}"
             implementationClass = 'com.github.viccw.openwhiskgradleplugin.OpenWhiskGradlePlugin'
+        }
+    }
+}
+
+plugins.withType(EclipsePlugin) {
+    plugins.withType(JavaBasePlugin) {
+        eclipse {
+            classpath {
+                file {
+                    whenMerged { classpath ->
+                        String gradleHome = gradle.getGradleHomeDir()
+                            .absolutePath
+                            .replace(File.separator, '/')
+                        String gradleSourceDirectory = "${gradleHome}/src"
+                        classpath.entries.each { entry ->
+                            if (entry in org.gradle.plugins.ide.eclipse.model.AbstractLibrary
+                                    && entry.library.path.contains('generated-gradle-jars')) {
+                                entry.sourcePath =
+                                    new org.gradle.plugins.ide.eclipse.model.internal.FileReferenceFactory()
+                                        .fromPath(gradleSourceDirectory)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
