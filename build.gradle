@@ -21,6 +21,16 @@ wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
 
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
+    compile group: 'com.github.vic-cw', name: 'openwhisk-client-java', version:'a472e5'
+}
+
 gradlePlugin {
     plugins {
         simplePlugin {
