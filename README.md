@@ -1,8 +1,9 @@
 # OpenWhisk Gradle plugin
 
-A plugin to manage OpenWhisk actions from a Gradle build script.
-
 Apache OpenWhisk is a serverless event-based programming service.
+
+This plugin enables to manage OpenWhisk actions from a Gradle build script,
+without requiring to install anything on your system.
 
 ## Quick start - minimal configuration
 
