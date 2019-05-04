@@ -36,8 +36,6 @@ Set the following environment variables:
 - `OPENWHISK_NAMESPACE`: namespace of the action to update,
   for example `yourcloudfoundryorg_yourcloudfoundryspace`
 - `OPENWHISK_ACTION_NAME`: action name
-- `OPENWHISK_DOCKER_IMAGE`: full name of the Docker image to use as the base of OpenWhisk action,
-  for example `com.domain/myOpenWhiskImage:latest`
 - `OPENWHISK_WEB_SECURE_KEY`: a 16 digit integer to secure access to OpenWhisk action
 
 Use it:

@@ -16,6 +16,9 @@ import com.google.common.base.Strings;
 
 public class UpdateDockerActionTask extends DefaultTask {
 
+    private static final String DEFAULT_DOCKER_IMAGE
+        = "openwhisk/dockerskeleton:latest";
+
     public String artifactBuildTaskName = null;
 
     public String apiHostEnvironmentVariable = OpenWhiskGradlePlugin
@@ -51,9 +54,9 @@ public class UpdateDockerActionTask extends DefaultTask {
         String actionName = getEnvironmentVariable(
                 actionNameEnvironmentVariable,
                 "OpenWhisk action name");
-        String dockerImage = getEnvironmentVariable(
+        String dockerImage = getOptionalEnvironmentVariable(
                 dockerImageEnvironmentVariable,
-                "OpenWhisk Docker image");
+                DEFAULT_DOCKER_IMAGE);
 
         Optional<Long> webSecureKey = Optional.empty();
 
@@ -129,5 +132,17 @@ public class UpdateDockerActionTask extends DefaultTask {
                     + " not set");
         }
         return result;
+    }
+
+    private String getOptionalEnvironmentVariable(String environmentVariableName,
+            String defaultValue) {
+        if (Strings.isNullOrEmpty(environmentVariableName)) {
+            return defaultValue;
+        }
+        String variableValue = System.getenv(environmentVariableName);
+        if (Strings.isNullOrEmpty(variableValue)) {
+            return defaultValue;
+        }
+        return variableValue;
     }
 }
