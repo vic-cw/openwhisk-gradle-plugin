@@ -14,7 +14,7 @@ Add the following to `build.gradle`:
             maven { url 'https://jitpack.io' }
         }
         dependencies {
-            classpath 'com.github.vic-cw:openwhisk-gradle-plugin:29837b'
+            classpath 'com.github.vic-cw:openwhisk-gradle-plugin:de1293'
         }
     }
     

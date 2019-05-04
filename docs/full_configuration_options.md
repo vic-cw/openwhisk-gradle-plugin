@@ -5,9 +5,9 @@
             maven { url 'https://jitpack.io' }
         }
         dependencies {
-            // Replace '29837b' by any later commit hash,
+            // Replace 'de1293' by any later commit hash,
             // see jitpack.io for explanations
-            classpath 'com.github.vic-cw:openwhisk-gradle-plugin:29837b'
+            classpath 'com.github.vic-cw:openwhisk-gradle-plugin:de1293'
         }
     }
     
