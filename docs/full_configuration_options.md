@@ -48,6 +48,10 @@
         // Optional, default 256.
         memoryLimit = 256
         
+        // Set timeout for the OpenWhisk action, in milliseconds.
+        // Optional, default 60000.
+        timeoutLimit = 60000
+        
         // Turn on or off logging of request and response to and from
         // OpenWhisk platform.
         // Optional, default false.

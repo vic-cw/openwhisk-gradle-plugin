@@ -36,6 +36,7 @@ public class UpdateDockerActionTask extends DefaultTask {
     public String webSecureKeyEnvironmentVariable = OpenWhiskGradlePlugin
             .OPENWHISK_WEB_SECURE_KEY_ENVIRONMENT_VARIABLE;
     public short memoryLimit = 256;
+    public int timeoutLimit = 60000;
     public boolean debug = false;
 
     Task artifactBuildTask = null;
@@ -105,6 +106,7 @@ public class UpdateDockerActionTask extends DefaultTask {
                         .getFiles().getSingleFile().getAbsolutePath())
                 .web(web)
                 .memory(memoryLimit)
+                .timeout(timeoutLimit)
                 .overwrite(true);
         if (webSecure) {
             if (webSecureKey.isPresent()) {
