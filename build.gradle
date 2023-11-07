@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
-    compile group: 'com.github.vic-cw', name: 'openwhisk-client-java', version:'c75f25a'
+    compile group: 'com.github.vic-cw', name: 'openwhisk-client-java', version:'50b41fd'
 }
 
 gradlePlugin {

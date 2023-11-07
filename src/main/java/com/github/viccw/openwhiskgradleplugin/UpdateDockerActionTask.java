@@ -1,5 +1,7 @@
 package com.github.viccw.openwhiskgradleplugin;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 import org.gradle.api.DefaultTask;
@@ -31,6 +33,9 @@ public class UpdateDockerActionTask extends DefaultTask {
             .OPENWHISK_ACTION_NAME_ENVIRONMENT_VARIABLE;
     public String dockerImageEnvironmentVariable = OpenWhiskGradlePlugin
             .OPENWHISK_DOCKER_IMAGE_ENVIRONMENT_VARIABLE;
+    public boolean useOauth;
+    public Map<String, String> oauthTokenRequestParameters;
+    public Map<String, String> oauthTokenRequestHeaders;
     public boolean web = false;
     public boolean webSecure = false;
     public String webSecureKeyEnvironmentVariable = OpenWhiskGradlePlugin
@@ -42,13 +47,16 @@ public class UpdateDockerActionTask extends DefaultTask {
     Task artifactBuildTask = null;
 
     @TaskAction
-    public void run() {
+    public void run() throws IOException {
         String apiHost = getEnvironmentVariable(
                 apiHostEnvironmentVariable,
                 "OpenWhisk API host");
         String authorizationKey = getEnvironmentVariable(
                 authorizationKeyEnvironmentVariable,
                 "OpenWhisk authorization key");
+        String oauthTokenUrl = getEnvironmentVariable(
+                "OPENWHISK_OAUTH_TOKEN_URL",
+                "OpenWhisk Oauth token URL");
         String namespace = getEnvironmentVariable(
                 namespaceEnvironmentVariable,
                 "OpenWhisk namespace");
@@ -96,6 +104,10 @@ public class UpdateDockerActionTask extends DefaultTask {
         openWhiskClient.configure(Configuration.builder()
                 .host(apiHost)
                 .auth(authorizationKey)
+                .useOauth(useOauth)
+                .oauthTokenUrl(oauthTokenUrl)
+                .oauthTokenRequestParameters(oauthTokenRequestParameters)
+                .oauthTokenRequestHeaders(oauthTokenRequestHeaders)
                 .namespace(namespace)
                 .debugging(debug)
                 .build());
